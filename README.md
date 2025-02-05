@@ -20,3 +20,6 @@ conda env create -f environment.yml
 - 將「總統-A05-4-候選人得票數一覽表-各投開票所」的22個試算表檔案放到專案資料夾的`data/`資料夾中
 - 啟動環境並執行`python` `create_taiwan_presidential_election_2024_db.py`就能在`data/`資料夾中建立`taiwan_presidential_election_2024.db`
 - 啟動環境並執行`python` `app.py` 並前往 http://127.0.0.1:7860 瀏覽成品。
+
+## 其他實作
+除前述利用程式與資料庫製作的成品外，本專案亦使用相同資料集，透過`Power BI Desktop`實作此作品，成品呈現選舉重點結果之視覺化，並讓使用者能以下拉方式選擇地區以檢視餘弦相似度，同時提供各組候選人在選定之村鄰里的得票分佈視覺化，方便與全國結果、餘弦相似度對照比較，詳見`taiwan_presidential_election_2024.pbix`。
