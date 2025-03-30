@@ -13,7 +13,7 @@ class CreateTaiwanPresidentialElection2024DB:
                 county_names.append(file_name_split[1])
         self.county_names = county_names 
 
-    def tidy_country_dataframe(self, county_name: str):    
+    def tidy_county_dataframe(self, county_name: str):    
         file_path = f'data/總統-A05-4-候選人得票數一覽表-各投開票所({county_name}).xlsx'
         # 跳過合併的標頭並取地區、開票所、候選人
         df = pd.read_excel(file_path,skiprows=[0, 3, 4]).iloc[:, :6]
@@ -31,12 +31,14 @@ class CreateTaiwanPresidentialElection2024DB:
         return melted_df
 
     def concat_country_dataframe(self):
+        '''合併個縣市df成為全國資料'''
         country_df = pd.DataFrame()
         for county_name in self.county_names:
-            county_df = self.tidy_country_dataframe(county_name)
+            county_df = self.tidy_county_dataframe(county_name)
             country_df = pd.concat([country_df, county_df])
         country_df.reset_index(drop=True,inplace=True)
         
+        # (1)\n柯文哲\n吳欣盈 -> 1 & '柯文哲/吳欣盈'
         numbers, candidates = [], []
         for elem in country_df['candidates_info'].str.split('\n'):
             number = re.sub('\\(|\\)', '', elem[0])
